@@ -1,16 +1,13 @@
 #include<vector>
-#include<initializer_list>
 #include<cassert>
-#include<iostream>
 
 using std::vector;
-using std::initializer_list;
 
 class Poly{
 public:
     Poly() = delete;
-    Poly(int e, initializer_list<double> c, double v, initializer_list<double> b);
-    Poly(int e, initializer_list<double> c, double v);
+    Poly(int e, vector<double> c, double v, vector<double> b);
+    Poly(int e, vector<double> c, double v);
     double get() {  return y; }
 private:
     double evaluate();
@@ -21,7 +18,7 @@ private:
     vector<double> base_point;
 };
 
-Poly::Poly(int e, initializer_list<double> c, double v, initializer_list<double> b):
+Poly::Poly(int e, vector<double> c, double v, vector<double> b):
     exp(e), coefficient(c), x(v), base_point(b)
 {
     assert(coefficient.size() == (exp+1));
@@ -29,7 +26,7 @@ Poly::Poly(int e, initializer_list<double> c, double v, initializer_list<double>
     evaluate();
 }
 
-Poly::Poly(int e, initializer_list<double> c, double v):exp(e), coefficient(c), x(v)
+Poly::Poly(int e, vector<double> c, double v):exp(e), coefficient(c), x(v)
 {
     assert(coefficient.size() == (exp+1));
     base_point.resize(e,0);
