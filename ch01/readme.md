@@ -23,6 +23,8 @@ EXAMPLE1.2:    0.739085
 `g++ 12_Fixed_Point.cc`  
 `./a.out 0.5`  
 
+It depends on the slope(or derivative) of the function. If the absolute value of derivative < 1, then it will converge.  
+
 ```
 espeon@Espeon:~/work/Numerical-Analysis/ch01$ ./a.out 0.9
 x = 1 - x^3: 

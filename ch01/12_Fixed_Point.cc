@@ -25,5 +25,26 @@ int main(int argc, char** argv){
     c.print();
     std::cout << "--------------------------" << std::endl;
 
+    std::cout << "x = cos(x): " << std::endl;
+    Fixed_Point d([](double x){ return cos(x); }, INIT);  
+    d.print();
+    std::cout << "--------------------------" << std::endl;  
+
+    std::cout << "x = x + cos(x) - sin(x): " << std::endl;
+    Fixed_Point f([](double x){ return x + cos(x) - sin(x); }, INIT);  
+    f.print();
+    std::cout << "--------------------------" << std::endl;
+
+    std::cout << "x = 2.8x - x^2: " << std::endl;
+    Fixed_Point g([](double x){ return 2.8*x - pow(x,2); }, INIT);  
+    g.print();
+    std::cout << "--------------------------" << std::endl;  
+
+    std::cout << "x = (x+2/x)/2: " << std::endl;
+    Fixed_Point h([](double x){ return (x + 2/x)/2; }, INIT);  
+    h.print();
+    std::cout << "--------------------------" << std::endl;
+
+    
     return 0;
 }
