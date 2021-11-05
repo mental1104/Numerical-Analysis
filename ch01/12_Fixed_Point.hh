@@ -7,37 +7,33 @@
 class Fixed_Point {
 public: 
     Fixed_Point() = delete;
-    Fixed_Point(std::function<double(double)> f, double a):func(f), x(a){
-        temp.reserve(TIME);
-        evaluate();
+    Fixed_Point(std::function<double(double)> func, double x):f(func){
+        val.resize(TIME);
+        evaluate(x);
+        print();
     }
-    double get() {  return y;   }
-    void print();
+    void reset(double x) {  evaluate(x); print(); }
 private:
-    void evaluate();
-    std::function<double(double)> func;
-    double x;
-    double y;
-    std::vector<double> temp;
+    void print();
+    void evaluate(double x);
+    std::function<double(double)> f;
+    std::vector<double> val;
 };
 
 void
-Fixed_Point::evaluate(){
-    double res = x;
-    temp[0] = res;
-    int i;
-    for(i = 1; i < TIME; i++){
-        res = func(res);
-        temp[i] = res;
+Fixed_Point::evaluate(double x){
+    val[0] = x;
+    for(int i = 1; i < TIME; i++){
+        x = f(x);
+        val[i] = x;
     }
-    y = temp[i-1];
     return;
 }
 
 void 
 Fixed_Point::print(){
     for(int i = 0; i < TIME; i++){
-        printf("%d: %.13f\n", i, temp[i]);
+        printf("%.13f\n", val[i]);
     }
     return;
 }

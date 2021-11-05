@@ -4,41 +4,30 @@
 class Bisect{
 public:
     Bisect() = delete;
-    Bisect(std::function<double(double)> f, double x, double y):func(f), a(x), b(y){
-        assert(func(a)*func(b) < 0);
-        evaluate();
+    Bisect(std::function<double(double)> func, double a, double b)
+    :f(func){
+        assert(f(a)*f(b) < 0);
+        evaluate(a, b);
     }
-    double getRoot() {  return root; }
+    double get() {  return root; }
 private:
-    void evaluate();
-    std::function<double(double)> func;
-    double a;
-    double b;
-    int accuracy;
+    void evaluate(double a, double b);
+    std::function<double(double)> f;
     double root;
 };
 
 void 
-Bisect::evaluate(){
-    double fa = func(a);
-    double fb = func(b);
-
-    double _a = a;
-    double _b = b;
+Bisect::evaluate(double a, double b){
     double c;
-    double fc;
     for(int i = 0; i < 30; i++){
-        c = (_a + _b) / 2;
-        fc = func(c);
-        if(fc == 0.00)
+        c = (a + b) / 2;
+        if(f(c) == 0.00)
             break;
-        if(fc * fa < 0){
-            _b = c;
-            fb = fc; 
-        }else{
-            _a = c;
-            fa = fc;
-        }
+
+        if(f(a) * f(c) < 0)
+            b = c;
+        else
+            a = c;
     }
-    root = (_a + _b)/2;
+    root = (a + b)/2;
 }

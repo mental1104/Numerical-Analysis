@@ -27,7 +27,7 @@ int main(){
     int counter = 0;
     for(auto& i: vec){
         counter++;
-        cout << "EXAMPLE1." << counter << ":    " << i->getRoot() << std::endl;
+        cout << "EXAMPLE1." << counter << ":    " << i->get() << std::endl;
     }
     return 0;    
 }
