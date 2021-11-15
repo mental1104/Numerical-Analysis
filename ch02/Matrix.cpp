@@ -1,14 +1,14 @@
 #include "./Matrix.hpp"
 
 int main(){
-    Matrix m({
-		 {1,1,1},
-         {1,2,3},
-         {1,3,6}
-	}, {5,7,11});
-
-    for(auto i: m.evaluate())
-        std::cout << i << " ";
-    std::cout << std::endl;
+    Matrix A({
+        {1,1,1,1},
+        {1,2,3,4},
+        {1,3,6,10},
+        {1,4,10,20}
+    });
+    Factor val = LU(A);
+    val.first.show();
+    val.second.show();
     return 0;
 }

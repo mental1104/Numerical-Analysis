@@ -8,10 +8,19 @@ using std::vector;
 
 #define EPS 0.00001
 
+/*
+class Matrix;
+
+struct Factor{
+    Matrix first;
+    Matrix second;
+};*/
+
 class Matrix {
 public:
     Matrix(size_t row = 1, size_t col = 1): matrix(row, vector<double>(col, 0.0)) {}
     Matrix(const Matrix& rhs):matrix(rhs.matrix), vec(rhs.vec){}
+    Matrix(const vector<vector<double>> & data): matrix(data){}
 	Matrix(const vector<vector<double>> & data, const vector<double>& vec): matrix(data), vec(vec) {}
 	~Matrix(){}
 	Matrix& operator=(const Matrix& data){
@@ -21,6 +30,7 @@ public:
 	}
 
     Matrix naive();
+    //Factor LU();
     void show();
     vector<double> evaluate();
 
@@ -77,12 +87,64 @@ Matrix::show(){
 			printf("%8.2f ", matrix[i][j]);
 		puts("");
     }
+    /*
     std::cout << "b: \n";
     for(auto i : vec){
         printf("%8.2f ", i);
     }
     std::cout << std::endl;
+    */
 
 	return;
 }
+
+Matrix identity(int m){
+    assert(m > 0);
+    Matrix I(m,m);
+    for(int i = 0; i < m; i++){
+        for(int j = 0; j < m; j++){
+            if(i == j){
+                I.matrix[i][j] = 1;
+            } else {
+                I.matrix[i][j] = 0;
+            }
+        }
+    }
+    return I;
+}
+
+struct Factor {
+    Matrix first;
+    Matrix second;
+};
+
+Factor LU(Matrix A){
+    int m = A.matrix.size();
+    Matrix U = A;
+    Matrix L = identity(m);
+
+    for(int i = 0; i < m; i++){
+        assert(U.matrix[i][i]>EPS);
+        for(int j = i+1; j < m; j++){
+            double a = U.matrix[j][i]/U.matrix[i][i];
+            L.matrix[j][i] = a;
+            for(int k = i; k < m; k++){
+                U.matrix[j][k] = U.matrix[j][k] - a * U.matrix[i][k];
+            }
+        }
+    }
+    Factor val;
+    val.first = L;
+    val.second = U;
+    return val;
+}
+
+
+/*
+Factor 
+Matrix::LU(){
+
+}
+*/
+
 
