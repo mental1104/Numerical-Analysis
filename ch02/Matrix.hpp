@@ -6,7 +6,7 @@
 
 using std::vector;
 
-#define EPS 0.00001
+#define EPS 0.00000001
 
 /*
 class Matrix;
@@ -138,13 +138,4 @@ Factor LU(Matrix A){
     val.second = U;
     return val;
 }
-
-
-/*
-Factor 
-Matrix::LU(){
-
-}
-*/
-
 
